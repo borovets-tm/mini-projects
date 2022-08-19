@@ -1,36 +1,39 @@
 def is_valid(user_num, max_n):
-    while user_num.isdigit() == False or int(user_num) > max_n or int(user_num) < 1:
+    while not user_num.isdigit() or int(user_num) > max_n or int(user_num) < 1:
         user_num = input(f'А может быть все-таки введем целое число от 1 до {max_n}? ')
     return int(user_num)
 
+
 def repeat(count):
     if count == 1:
-        popyt = 'попытку'
+        word_used = 'попытку'
     elif 1 < count < 6:
-        popyt = 'попытки'
+        word_used = 'попытки'
     else:
-        popyt = 'попыток'
-        print(f'{name.title()} угадал число за {count} {popyt}')
-    repeat = input('Сыграем еще? \nД/Y - да, Н/N - нет\n').lower()
-    if repeat == 'д' or repeat == 'l' or repeat == 'y':
+        word_used = 'попыток'
+    print(f'{name.title()} угадал число за {count} {word_used}')
+    check = input('Сыграем еще? \nД/Y - да, Н/N - нет\n').lower()
+    if check == 'д' or check == 'l' or check == 'y':
         welcome_user(name)
     else:
-        print('Спасибо, что играли в числовую угадайку. Еще увидимся...')
+        print('Спасибо, что играли в числовую "Угадайку". Еще увидимся...')
 
-def welcome_user(name):
+
+def welcome_user(user):
     from random import randint
-    print(f'Добро пожаловать в в числовую угадайку {name.title()}!')
+    print(f'Добро пожаловать в в числовую "Угадайку" {user.title()}!')
     right = input('Укажи максимальное число для отгадки... ')
-    while right.isdigit() == False:
+    while not right.isdigit():
         right = input('Укажи максимальное число для отгадки... ')
     right = int(right)
     s_num = randint(1, right)
     num = input(f'Введи число от 1 до {right} ')
     num = is_valid(num, right)
-    count = ugadaika(num, s_num, right)
+    numerical_guessing_game(num, s_num, right)
     return name.title()
 
-def ugadaika(answer, number, max_n):
+
+def numerical_guessing_game(answer, number, max_n):
     count = 1
     while answer != number:
         if answer < number:
@@ -41,6 +44,7 @@ def ugadaika(answer, number, max_n):
             count += 1
     print('Вы угадали, поздравляем!')
     repeat(count)
+
 
 name = input('Как Вас зовут? ')
 name = welcome_user(name)
